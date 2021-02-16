@@ -1,0 +1,26 @@
+ $(document).ready(function(){
+        //ajouter enregistrement apres click
+          $(document).on('click','a[data-role=reserver]',function(){
+            var comment_id=$(this).data('comment_id') ;
+            $('#id').val(comment_id);
+            console.log('c est fait');
+            
+          
+
+          $.ajax({
+                url :'fonctions/getPhotoAppartement.php',
+                type:'POST',
+                dataType:'JSON',
+                data:{ id: comment_id},
+                success: function(data){
+                    $photo = document.createElement('img');
+                    $url= data.photo;
+                    $photo.setAttribute('src', 'images/'+$url);
+                   $('.photoAp').append($photo);
+                 }
+            })  
+            $('#reservation').modal('toggle');   
+        });
+        //on click 'annuler' photo ap:remove $photo
+        
+        })
